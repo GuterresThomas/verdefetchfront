@@ -11,6 +11,11 @@ import {
 
 export default function Fetchs() {
     const [dataBases, setDataBases] = useState([])
+    const [tabela, setTabelas] = useState([])
+    const [newTable, setNewTable] = useState({
+        nome:'',
+    })
+
 
     const fetchDataBases = async () => {
         const response = await fetch ('http://localhost:3000/databases')
@@ -19,6 +24,30 @@ export default function Fetchs() {
         console.log(data)
     }
 
+    const addTable = async () => {
+        const response = await fetch('172.27.3.15:3000/databases/insert', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newTable),
+        })
+        if (response.status === 201) {
+            setNewTable({
+                nome: '',
+                
+                
+            })
+            fetchDatabases()
+        }     
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        addTable();
+        alert('Tabela adicionada')
+        window.location.reload()
+    }   
     
 
     useEffect(() => {
@@ -36,6 +65,7 @@ export default function Fetchs() {
                             <AccordionTrigger>{database.table_name}</AccordionTrigger>
                             <AccordionContent>
                                 <div>{database.table_type}</div>
+                                <button onClick={handleSubmit} value={database.table_name}>Adicionar Tabela</button>
                             </AccordionContent>
                         </AccordionItem>
                     </Accordion>
