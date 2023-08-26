@@ -16,15 +16,17 @@ export default function AddForm() {
     }
 
     const addTable =async () => {
-        const response = await fetch('172.27.3.15:3000/databases/insert', {
+        console.log(newTable)
+        const response = await fetch('http://localhost:3000/databases/insert', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(newTable),
+            
         })
         if (response.status === 201) {
-            setNewEmployee({
+            setNewTable({
                 nome: '',
                 
                 
@@ -36,7 +38,9 @@ export default function AddForm() {
         event.preventDefault();
         addTable();
         alert('Tabela adicionada')
-        window.location.reload()
+        console.log(newTable)
+        
+        
     }   
     
     useEffect(() => {
@@ -51,7 +55,7 @@ export default function AddForm() {
                 </div>
                 <form onSubmit={handleSubmit} className="flex-col flex justify-center gap-2 p-2 ">
                     <label htmlFor="nome">Nome da tabela:</label>
-                    <input className="bg-sky-50 rounded-xl p-1 w-full hover:bg-sky-200" type="text" id="nome" name="nome" value={newTable.name} onChange={(e) => setNewTable({ ...newTable, name: e.target.value })} />
+                    <input className="bg-sky-50 rounded-xl p-1 w-full hover:bg-sky-200" type="text" id="nome" name="nome" value={newTable.nome} onChange={(e) => setNewTable({ ...newTable, nome: e.target.value })} />
                     
                     
                     

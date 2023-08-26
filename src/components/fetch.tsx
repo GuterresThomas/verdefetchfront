@@ -38,7 +38,7 @@ export default function Fetchs() {
                 
                 
             })
-            fetchDatabases()
+            fetchDataBases()
         }     
     }
 
@@ -46,6 +46,7 @@ export default function Fetchs() {
         event.preventDefault();
         addTable();
         alert('Tabela adicionada')
+        console.log()
         window.location.reload()
     }   
     
@@ -65,7 +66,7 @@ export default function Fetchs() {
                             <AccordionTrigger>{database.table_name}</AccordionTrigger>
                             <AccordionContent>
                                 <div>{database.table_type}</div>
-                                <button onClick={handleSubmit} value={database.table_name}>Adicionar Tabela</button>
+                                <button onClick={handleSubmit} value={database.table_name} onChange={(e) => setNewTable({ ...newTable, name: e.target.value })}>Adicionar Tabela</button>
                             </AccordionContent>
                         </AccordionItem>
                     </Accordion>
