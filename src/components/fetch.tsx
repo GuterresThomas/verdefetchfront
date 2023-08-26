@@ -2,28 +2,31 @@
 import { useEffect, useState } from "react";
 
 export default function Fetchs() {
-    const [posts, setPosts] = useState([])
+    const [dataBases, setDataBases] = useState([])
 
-    const fetchPosts = async () => {
-        const response = await fetch ('')
+    const fetchDataBases = async () => {
+        const response = await fetch ('http://localhost:3000/databases')
         const data = await response.json()
-        setPosts(data)
+        setDataBases(data)
         console.log(data)
     }
 
+    
+
     useEffect(() => {
-      fetchPosts()
+      fetchDataBases()
     }, [])
     
 
     return (
         <div>
-            {posts.map((post) => (    
-                <li key={post.id}>
-                    <ul>{post.title}</ul>
-                    <ul> {post.body}</ul>
+            <ul>
+                {dataBases.map((database) => (
+                <li key={database.table_name}>
+                    <div>{database.table_name}</div>
                 </li>
-            ))}
+                ))}
+            </ul>
         </div>
     )
 }
